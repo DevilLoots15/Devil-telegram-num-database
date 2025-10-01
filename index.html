@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Devil Telegram Number Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 { margin-bottom: 20px; }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background: #ff0000;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover { background: #ff3333; }
+        pre { margin-top: 20px; background: #222; padding: 15px; border-radius: 5px; width: 80%; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Devil Telegram Number Database</h1>
+    <input type="text" id="keyInput" placeholder="Enter your API key">
+    <br>
+    <input type="text" id="usernameInput" placeholder="Enter username or number">
+    <br>
+    <button onclick="goToApi()">Go to API</button>
+
+    <pre id="result"></pre>
+
+    <script>
+        function goToApi() {
+            const key = document.getElementById("keyInput").value.trim();
+            const username = document.getElementById("usernameInput").value.trim();
+            const resultBox = document.getElementById("result");
+
+            if (!key) {
+                alert("Please enter your key!");
+                return;
+            }
+            if (!username) {
+                alert("Please enter a username or number!");
+                return;
+            }
+
+            // ✅ Use full absolute URL pointing to your deployed Vercel site
+            const apiUrl = `https://Devil-telegram-num-database.vercel.app/api/search-number?key=${encodeURIComponent(key)}&username=${encodeURIComponent(username)}`;
+
+            fetch(apiUrl)
+                .then(res => res.json())
+                .then(data => {
+                    resultBox.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    resultBox.textContent = "Error connecting to API: " + err;
+                });
+        }
+    </script>
+</body>
+</html>
